@@ -7,4 +7,4 @@
 INPUT=10
 
 module load Apps/Matlab/R2016b
-matlab -nodisplay -nosplash -r example_batch < /dev/null
+matlab -nodisplay -nosplash -r example_batch($INPUT) < /dev/null
