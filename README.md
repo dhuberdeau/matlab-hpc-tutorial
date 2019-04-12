@@ -2,25 +2,26 @@
 
 This project contains a tutorial and examples for operating Matlab on clusters at Yale.
 
-*author: David Huberdeau*
+*author: David Huberdeau*,
 *Post-doctoral Fellow, YCRC*
 
 
-# Tutorials Curriculum
+# Tutorial Curriculum
 
 1. Brief overview of Matlab
-1. Running Matlab with graphic user interface (GUI) on a cluster
 2. Operating Matlab interactively without a GUI
 1. Submitting Matlab batch jobs on the clusters
 2. Parallelizing code in general and on the clusters
+1. Running Matlab with graphic user interface (GUI) on a cluster
 
 # Planned examples
 
-- Matlab Desktop (example.m)
-- GUI mode (example_gui.m)
+- Simple Matlab example (example.m)
 - Interactive mode (example_interactive.m)
 - Batch scripting (example_batch.sh)
-- Parallelizing (example_parallel.m)
+- GUI mode (example_gui.m)
+- Parallelizing (example_parallel.m, example_parallel_batch.sh)
+
 
 # Matlab overview
 
@@ -28,53 +29,15 @@ This project contains a tutorial and examples for operating Matlab on clusters a
 
 `example`
 
-# Running Matlab GUI on the clusters
-
-Log on to the cluster of choice
-
-`ssh -Y dmh87@milgram.hpc.yale.edu`
-
-_don't forget the -Y_
-
-Log on to a compute node
-
-`srun --pty --x11 -p interactive bash`
-
-Then load the Matlab version of choice (or the default)
-
-`module load MATLAB`
-
-Finally, start MATLAB
-
-`matlab`
-
-Now, you can run your code, edit files, plot things, or anything else that you would normally do.
-
-`example_gui`
-
-## Summary:
-
-```
-ssh -Y dmh87@milgram.hpc.yale.edu,
-srun --pty --x11 -p interactive bash,
-module load MATLAB,
-matlab
-example_gui
-```
-
 # Running Matlab without a user interface
 
 Log on to the cluster of choice
 
-`ssh dmh87@milgram.hpc.yale.edu`
-
-_this time, the -Y is unneccesary_
+`ssh [netid]@milgram.hpc.yale.edu`
 
 Log on to a compute node
 
 `srun --pty -p interactive bash`
-
-_note that the "--x11" isn't necessary when no GUI is used_
 
 Then load the Matlab version of choice (or the default)
 
@@ -91,7 +54,7 @@ Now, you can run your code or do other things
 ## Summary:
 
 ```
-ssh dmh87@milgram.hpc.yale.edu,
+ssh [netid]@milgram.hpc.yale.edu,
 srun --pty -p interactive bash,
 module load MATLAB,
 matlab -nodesktop -nosplash -nojvm,
@@ -127,7 +90,16 @@ Specify inputs to a function using bash scripting.
 - Variables can be defined in your batch job, then referenced by including a leading $
 
 ```
+#!/bin/bash
+#SBATCH -J my_matlab_job
+#SBATCH -c 4
+#SBATCH -t 1:00:00
+#SBATCH -p short
 
+INPUT=10
+
+module load Apps/Matlab/R2016b
+matlab -nodisplay -nosplash -r example_batch($INPUT) < /dev/null
 ```
 
 ## Some tips:
@@ -138,10 +110,52 @@ Specify inputs to a function using bash scripting.
   - [how to do that here]
 
 
-
-
-
 ## Summary
 ```
 sbatch example_batch.sh
+ ```
+
+
+ # Parallelization in MATLAB
+
+ Create a script that parallelizes the operations in example.m.
+ For example: example_parallel.m
+
+```
+example_parallel
+```
+
+
+ # Running Matlab GUI on the clusters
+
+ Log on to the cluster of choice
+
+ `ssh -Y dmh87@milgram.hpc.yale.edu`
+
+ _don't forget the -Y_
+
+ Log on to a compute node
+
+ `srun --pty --x11 -p interactive bash`
+
+ Then load the Matlab version of choice (or the default)
+
+ `module load MATLAB`
+
+ Finally, start MATLAB
+
+ `matlab`
+
+ Now, you can run your code, edit files, plot things, or anything else that you would normally do.
+
+ `example_gui`
+
+ ## Summary:
+
+ ```
+ ssh -Y dmh87@milgram.hpc.yale.edu,
+ srun --pty --x11 -p interactive bash,
+ module load MATLAB,
+ matlab
+ example_gui
  ```
