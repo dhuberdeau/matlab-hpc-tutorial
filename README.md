@@ -22,18 +22,14 @@ This project contains a tutorial and examples for operating Matlab on clusters a
 - GUI mode (example_gui.m)
 - Parallelizing (example_parallel.m, example_parallel_batch.sh)
 
+# Overview of Matlab
 
-# Matlab overview
 
-- High level scripting programming language
-
-`example`
-
-# Running Matlab without a user interface
+# Running Matlab on a cluster
 
 Log on to the cluster of choice
 
-`ssh [netid]@milgram.hpc.yale.edu`
+`ssh [netid]@[your_cluster].hpc.yale.edu`
 
 Log on to a compute node
 
@@ -45,7 +41,7 @@ Then load the Matlab version of choice (or the default)
 
 Finally, start MATLAB without the user interface
 
-`matlab -nodesktop -nosplash -nojvm`
+`matlab -nodesktop -nosplash`
 
 Now, you can run your code or do other things
 
@@ -54,14 +50,13 @@ Now, you can run your code or do other things
 ## Summary:
 
 ```
-ssh [netid]@milgram.hpc.yale.edu,
+ssh [netid]@[your_cluster].hpc.yale.edu,
 srun --pty -p interactive bash,
 module load MATLAB,
-matlab -nodesktop -nosplash -nojvm,
+matlab -nodesktop -nosplash,
 example_interactive
 ```
 
-- _the "-nojvm" option is not necessary but I like including it to avoid potential java errors_
 - _the "-nodesktop" option keeps the GUI from opening. If you do not include this and you have not logged on to the cluster (ssh) using the "-Y" option, then it will default to openning in interactive mode"_
 
 # Submitting batch jobs on the clusters
@@ -86,7 +81,7 @@ matlab -nodisplay -nosplash -r example_batch < /dev/null
 sbatch example_batch.sh
 ```
 
-Specify inputs to a function using bash scripting.
+Specify inputs to a function using batch scripting.
 - Variables can be defined in your batch job, then referenced by including a leading $
 
 ```
@@ -107,24 +102,12 @@ matlab -nodisplay -nosplash -r example_batch($INPUT) < /dev/null
   - variables
   - figures
 - Achieve simple parallelization by using a job array
-  - [how to do that here]
 
 
 ## Summary
 ```
 sbatch example_batch.sh
  ```
-
-
- # Parallelization in MATLAB
-
- Create a script that parallelizes the operations in example.m.
- For example: example_parallel.m
-
-```
-example_parallel
-```
-
 
  # Running Matlab GUI on the clusters
 
@@ -159,3 +142,13 @@ example_parallel
  matlab
  example_gui
  ```
+
+
+ # Parallelization in MATLAB
+
+ Create a script that parallelizes operations or functions.
+ For example: example_parallel.m
+
+```
+example_parallel
+```
