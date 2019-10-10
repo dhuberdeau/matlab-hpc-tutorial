@@ -1,4 +1,7 @@
-# Introduction
+
+# Practical MATLAB with High Performance Computing
+
+## Introduction
 
 This project contains a tutorial and examples for operating Matlab on clusters at Yale.
 
@@ -6,7 +9,7 @@ This project contains a tutorial and examples for operating Matlab on clusters a
 *Post-doctoral Fellow, YCRC*
 
 
-# Tutorial Curriculum
+## Tutorial Curriculum
 
 1. Brief overview of Matlab
 2. Operating Matlab interactively without a GUI
@@ -14,7 +17,7 @@ This project contains a tutorial and examples for operating Matlab on clusters a
 2. Parallelizing code in general and on the clusters
 1. Running Matlab with graphic user interface (GUI) on a cluster
 
-# Planned examples
+## Planned examples
 
 - Simple Matlab example (example.m)
 - Interactive mode (example_interactive.m)
@@ -22,10 +25,13 @@ This project contains a tutorial and examples for operating Matlab on clusters a
 - GUI mode (example_gui.m)
 - Parallelizing (example_parallel.m, example_parallel_batch.sh)
 
-# Overview of Matlab
+## Overview of Matlab
+Show example of desktop application.
+
+`example`
 
 
-# Running Matlab on a cluster
+## Running Matlab on a cluster
 
 Log on to the cluster of choice
 
@@ -47,7 +53,7 @@ Now, you can run your code or do other things
 
 `example_interactive`
 
-## Summary:
+### Summary:
 
 ```
 ssh [netid]@[your_cluster].hpc.yale.edu,
@@ -59,7 +65,7 @@ example_interactive
 
 - _the "-nodesktop" option keeps the GUI from opening. If you do not include this and you have not logged on to the cluster (ssh) using the "-Y" option, then it will default to openning in interactive mode"_
 
-# Submitting batch jobs on the clusters
+## Submitting batch jobs on the clusters
 
 Create a script that can be submitted as a batch job.
 For example: example_batch.sh
@@ -97,19 +103,19 @@ module load Apps/Matlab/R2016b
 matlab -nodisplay -nosplash -r example_batch($INPUT) < /dev/null
 ```
 
-## Some tips:
+### Some tips:
 - explicitly specify output files and directories to save any outputs to.
   - variables
   - figures
 - Achieve simple parallelization by using a job array
 
 
-## Summary
+### Summary
 ```
 sbatch example_batch.sh
  ```
 
- # Running Matlab GUI on the clusters
+ ## Running Matlab GUI on the clusters
 
  Log on to the cluster of choice
 
@@ -133,7 +139,7 @@ sbatch example_batch.sh
 
  `example_gui`
 
- ## Summary:
+ ### Summary:
 
  ```
  ssh -Y dmh87@milgram.hpc.yale.edu,
@@ -144,7 +150,7 @@ sbatch example_batch.sh
  ```
 
 
- # Parallelization in MATLAB
+ ## Parallelization in MATLAB
 
  Create a script that parallelizes operations or functions.
  For example: example_parallel.m
@@ -152,3 +158,8 @@ sbatch example_batch.sh
 ```
 example_parallel
 ```
+
+Also, see documentation on the Mathworks website:
+[Parallel computing](https://www.mathworks.com/help/parallel-computing/getting-started-with-parallel-computing-toolbox.html)
+
+For a good use case / scenario, try: [An MDP example](https://www.mathworks.com/help/reinforcement-learning/ug/train-reinforcement-learning-agent-in-mdp-environment.html)
